@@ -1,0 +1,541 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>DentalOS — Dashboard</title>
+    <meta name="description" content="DentalOS operations dashboard — manage communication queues, work lanes, and patient cases." />
+    <link rel="icon" href="./favicon.ico" sizes="any" />
+    <link rel="icon" href="./favicon.svg" type="image/svg+xml" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link rel="stylesheet" href="https://rsms.me/inter/inter.css" />
+    <link rel="stylesheet" href="./dashboard.css" />
+  </head>
+  <body>
+
+    <div class="app-shell">
+
+      <!-- ============================
+           SIDEBAR
+           ============================ -->
+      <aside class="sidebar" aria-label="Navigation">
+
+        <div class="sidebar__brand">
+          <span class="brand-badge" aria-hidden="true">D</span>
+          <span class="brand-text">DentalOS</span>
+        </div>
+
+        <nav class="sidebar__nav" aria-label="Main navigation">
+
+          <span class="nav-section-label">Workspace</span>
+
+          <a href="#" class="nav-item nav-item--active" aria-current="page">
+            <span class="nav-item__icon" aria-hidden="true">
+              <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+                <rect x="1" y="1" width="6" height="6" rx="1.5"/><rect x="9" y="1" width="6" height="6" rx="1.5"/><rect x="1" y="9" width="6" height="6" rx="1.5"/><rect x="9" y="9" width="6" height="6" rx="1.5"/>
+              </svg>
+            </span>
+            Overview
+            <span class="nav-item__badge">29</span>
+          </a>
+
+          <a href="#" class="nav-item">
+            <span class="nav-item__icon" aria-hidden="true">
+              <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M2 4h12M2 8h8M2 12h10"/>
+              </svg>
+            </span>
+            All Cases
+            <span class="nav-item__badge">47</span>
+          </a>
+
+          <a href="#" class="nav-item">
+            <span class="nav-item__icon" aria-hidden="true">
+              <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+                <rect x="2" y="3" width="12" height="11" rx="1.5"/><path d="M5 3V1.5M11 3V1.5M2 7h12"/>
+              </svg>
+            </span>
+            Appointments
+          </a>
+
+          <a href="#" class="nav-item">
+            <span class="nav-item__icon" aria-hidden="true">
+              <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+                <circle cx="8" cy="8" r="6"/><path d="M8 5v3l2 2"/>
+              </svg>
+            </span>
+            Recall Queue
+            <span class="nav-item__badge">11</span>
+          </a>
+
+          <span class="nav-section-label">Channels</span>
+
+          <a href="#" class="nav-item">
+            <span class="nav-item__icon" aria-hidden="true">
+              <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M2 3a1 1 0 011-1h10a1 1 0 011 1v7a1 1 0 01-1 1H4l-3 2V3z"/>
+              </svg>
+            </span>
+            WhatsApp
+            <span class="nav-item__badge">19</span>
+          </a>
+
+          <a href="#" class="nav-item">
+            <span class="nav-item__icon" aria-hidden="true">
+              <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M1 4a1 1 0 011-1h12a1 1 0 011 1v8a1 1 0 01-1 1H2a1 1 0 01-1-1V4zm0 0l7 5 7-5"/>
+              </svg>
+            </span>
+            Email
+          </a>
+
+          <a href="#" class="nav-item">
+            <span class="nav-item__icon" aria-hidden="true">
+              <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M4 4a2 2 0 012-2h4a2 2 0 012 2v9l-4-2-4 2V4z"/>
+              </svg>
+            </span>
+            Patient Portal
+            <span class="nav-item__badge">8</span>
+          </a>
+
+          <a href="#" class="nav-item">
+            <span class="nav-item__icon" aria-hidden="true">
+              <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M12 2a1 1 0 011 1v10a1 1 0 01-1 1H5l-3 1V3a1 1 0 011-1h9z"/><path d="M5 6h6M5 9h4"/>
+              </svg>
+            </span>
+            Phone
+            <span class="nav-item__badge">12</span>
+          </a>
+
+          <span class="nav-section-label">System</span>
+
+          <a href="#" class="nav-item">
+            <span class="nav-item__icon" aria-hidden="true">
+              <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+                <circle cx="8" cy="8" r="2"/><path d="M8 2v1m0 10v1M2 8h1m10 0h1m-2.05-4.95-.7.7M4.75 11.25l-.7.7m0-7.9.7.7m6.5 6.5.7.7"/>
+              </svg>
+            </span>
+            Automation Rules
+          </a>
+
+          <a href="#" class="nav-item">
+            <span class="nav-item__icon" aria-hidden="true">
+              <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M2 12V4a1 1 0 011-1h10a1 1 0 011 1v8"/><path d="M1 12h14M5 7h2m2 0h2M5 9.5h6"/>
+              </svg>
+            </span>
+            Billing &amp; Claims
+          </a>
+
+          <a href="#" class="nav-item">
+            <span class="nav-item__icon" aria-hidden="true">
+              <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+                <circle cx="8" cy="5" r="2.5"/><path d="M3 14c0-2.76 2.24-5 5-5s5 2.24 5 5"/>
+              </svg>
+            </span>
+            Settings
+          </a>
+
+        </nav>
+
+        <div class="sidebar__footer">
+          <div class="sidebar__avatar" aria-hidden="true">L</div>
+          <div class="sidebar__user-info">
+            <span class="sidebar__user-name">Lisa Meijer</span>
+            <span class="sidebar__user-role">Front desk operator</span>
+          </div>
+        </div>
+
+      </aside>
+
+      <!-- ============================
+           MAIN AREA
+           ============================ -->
+      <div class="main-area">
+
+        <!-- TOP BAR -->
+        <header class="topbar">
+          <div class="topbar__greeting">
+            <div class="topbar__date" id="js-date" aria-live="polite">Monday, April 13, 2026</div>
+            <div class="topbar__title" id="js-greeting">Good morning, Lisa</div>
+          </div>
+
+          <div class="topbar__actions">
+            <button class="topbar__btn" type="button" aria-label="Search cases">
+              <svg width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <circle cx="7" cy="7" r="4.5"/><path d="M12 12l2.5 2.5"/>
+              </svg>
+              Search
+            </button>
+            <button class="topbar__btn" type="button">
+              <svg width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <path d="M8 2v4l3 3M8 14a6 6 0 100-12 6 6 0 000 12z"/>
+              </svg>
+              Today
+            </button>
+            <button class="topbar__btn topbar__btn--primary" type="button">
+              <svg width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <rect x="2" y="3" width="12" height="11" rx="1.5"/><path d="M5 3V1.5M11 3V1.5M2 7h12"/>
+              </svg>
+              New Case
+            </button>
+            <button class="topbar__notif" type="button" aria-label="Notifications, 3 unread">
+              <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <path d="M8 2a4.5 4.5 0 014.5 4.5c0 2.5.6 3.5 1.5 4.5H2c.9-1 1.5-2 1.5-4.5A4.5 4.5 0 018 2zM6.5 13a1.5 1.5 0 003 0"/>
+              </svg>
+              <span class="notif-dot" aria-hidden="true"></span>
+            </button>
+          </div>
+        </header>
+
+        <!-- SCROLLABLE CONTENT -->
+        <main class="content-scroll" aria-label="Dashboard content">
+
+          <!-- CHANNEL STAT CARDS -->
+          <section aria-label="Channel overview">
+            <div class="stat-cards">
+
+              <div class="stat-card">
+                <div class="stat-card__header">
+                  <span class="stat-card__icon" aria-hidden="true">
+                    <svg width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">
+                      <path d="M12 2a1 1 0 011 1v10a1 1 0 01-1 1H5l-3 1V3a1 1 0 011-1h9z"/><path d="M5 6h6M5 9h4"/>
+                    </svg>
+                  </span>
+                  <span class="stat-card__channel">Phone</span>
+                </div>
+                <div class="stat-card__count">12</div>
+                <div class="stat-card__status stat-card__status--live">
+                  <span class="stat-card__pulse" aria-hidden="true"></span>live
+                </div>
+              </div>
+
+              <div class="stat-card">
+                <div class="stat-card__header">
+                  <span class="stat-card__icon" aria-hidden="true">
+                    <svg width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">
+                      <path d="M2 3a1 1 0 011-1h10a1 1 0 011 1v7a1 1 0 01-1 1H4l-3 2V3z"/>
+                    </svg>
+                  </span>
+                  <span class="stat-card__channel">WhatsApp</span>
+                </div>
+                <div class="stat-card__count">19</div>
+                <div class="stat-card__status stat-card__status--healthy">healthy</div>
+              </div>
+
+              <div class="stat-card">
+                <div class="stat-card__header">
+                  <span class="stat-card__icon" aria-hidden="true">
+                    <svg width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">
+                      <path d="M4 4a2 2 0 012-2h4a2 2 0 012 2v9l-4-2-4 2V4z"/>
+                    </svg>
+                  </span>
+                  <span class="stat-card__channel">Portal</span>
+                </div>
+                <div class="stat-card__count">8</div>
+                <div class="stat-card__status stat-card__status--active">active</div>
+              </div>
+
+              <div class="stat-card">
+                <div class="stat-card__header">
+                  <span class="stat-card__icon" aria-hidden="true">
+                    <svg width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">
+                      <path d="M1 4a1 1 0 011-1h12a1 1 0 011 1v8a1 1 0 01-1 1H2a1 1 0 01-1-1V4zm0 0l7 5 7-5"/>
+                    </svg>
+                  </span>
+                  <span class="stat-card__channel">Email</span>
+                </div>
+                <div class="stat-card__count">0</div>
+                <div class="stat-card__status stat-card__status--later">later</div>
+              </div>
+
+            </div>
+          </section>
+
+          <!-- MAIN DASHBOARD GRID -->
+          <div class="dashboard-grid">
+
+            <!-- LEFT: WORK LANES -->
+            <aside class="work-lanes-panel" aria-label="Work lanes">
+              <div class="panel-header">
+                <h2 class="panel-header__title">Work Lanes</h2>
+                <p class="panel-header__desc">Main communication streams producing operator work.</p>
+              </div>
+              <div class="work-lanes-list" role="list">
+
+                <div class="work-lane-item work-lane-item--active" role="listitem" tabindex="0" aria-current="true">
+                  <div class="work-lane-item__body">
+                    <div class="work-lane-item__name">Booking &amp; Reschedule</div>
+                    <div class="work-lane-item__desc">Requests to book, move, or confirm appointments.</div>
+                  </div>
+                  <span class="work-lane-item__count" aria-label="9 items">9</span>
+                </div>
+
+                <div class="work-lane-item" role="listitem" tabindex="0">
+                  <div class="work-lane-item__body">
+                    <div class="work-lane-item__name">Recall &amp; Follow-up</div>
+                    <div class="work-lane-item__desc">Reminders, callback flows, and follow-up sequences.</div>
+                  </div>
+                  <span class="work-lane-item__count" aria-label="11 items">11</span>
+                </div>
+
+                <div class="work-lane-item" role="listitem" tabindex="0">
+                  <div class="work-lane-item__body">
+                    <div class="work-lane-item__name">Questions</div>
+                    <div class="work-lane-item__desc">Operational and patient questions not directly booking-related.</div>
+                  </div>
+                  <span class="work-lane-item__count" aria-label="7 items">7</span>
+                </div>
+
+                <div class="work-lane-item" role="listitem" tabindex="0">
+                  <div class="work-lane-item__body">
+                    <div class="work-lane-item__name">Billing &amp; Coverage</div>
+                    <div class="work-lane-item__desc">Estimate, invoice, and coverage queries.</div>
+                  </div>
+                  <span class="work-lane-item__count" aria-label="2 items">2</span>
+                </div>
+
+                <div class="work-lane-item" role="listitem" tabindex="0">
+                  <div class="work-lane-item__body">
+                    <div class="work-lane-item__name">Complaints</div>
+                    <div class="work-lane-item__desc">Escalations requiring human review.</div>
+                  </div>
+                  <span class="work-lane-item__count" aria-label="0 items">0</span>
+                </div>
+
+              </div>
+            </aside>
+
+            <!-- CENTER: QUEUE -->
+            <section class="queue-panel" aria-label="Active cases queue">
+
+              <!-- BOOKING & RESCHEDULE -->
+              <article class="queue-section">
+                <div class="queue-section__header">
+                  <span class="queue-section__icon" aria-hidden="true">
+                    <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+                      <rect x="2" y="3" width="12" height="11" rx="1.5"/><path d="M5 3V1.5M11 3V1.5M2 7h12"/>
+                    </svg>
+                  </span>
+                  <div>
+                    <div class="queue-section__title">Booking &amp; Reschedule</div>
+                    <div class="queue-section__desc">Requests to book, move, or confirm appointments across channels.</div>
+                  </div>
+                  <span class="queue-section__count" aria-label="2 open cases">2</span>
+                </div>
+
+                <div class="queue-items">
+
+                  <div class="queue-item queue-item--urgent" tabindex="0" role="article" aria-label="Jan Smit - Bridge visit reschedule request - Needs front desk">
+                    <div class="queue-item__top">
+                      <span class="queue-item__patient">Jan Smit &middot; Bridge visit reschedule request</span>
+                      <span class="chip chip--urgent">Needs front desk</span>
+                    </div>
+                    <div class="queue-item__meta">WhatsApp &middot; Front desk</div>
+                    <div class="queue-item__summary">The patient wants to move bridge planning to next week after 14:00. DentalOS linked the appointment but found that the treatment step is still blocked by missing signed consent.</div>
+                  </div>
+
+                  <div class="queue-item" tabindex="0" role="article" aria-label="Lotte van Dam - Earliest hygiene slot next week - Ready to confirm">
+                    <div class="queue-item__top">
+                      <span class="queue-item__patient">Lotte van Dam &middot; Earliest hygiene slot next week</span>
+                      <span class="chip chip--ready">Ready to confirm</span>
+                    </div>
+                    <div class="queue-item__meta">Portal &middot; Front desk</div>
+                    <div class="queue-item__summary">The request is matched and a slot is available, but policy still requires an operator confirmation before the appointment is booked.</div>
+                  </div>
+
+                </div>
+              </article>
+
+              <!-- RECALL & FOLLOW-UP -->
+              <article class="queue-section">
+                <div class="queue-section__header">
+                  <span class="queue-section__icon" aria-hidden="true">
+                    <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+                      <path d="M8 2.5a5.5 5.5 0 100 11 5.5 5.5 0 000-11zM8 5v3l1.5 1.5"/>
+                    </svg>
+                  </span>
+                  <div>
+                    <div class="queue-section__title">Recall &amp; Follow-up</div>
+                    <div class="queue-section__desc">Reminders, callback flows, and follow-up sequences that are still running.</div>
+                  </div>
+                  <span class="queue-section__count" aria-label="3 open cases">3</span>
+                </div>
+
+                <div class="queue-items">
+
+                  <div class="queue-item" tabindex="0" role="article">
+                    <div class="queue-item__top">
+                      <span class="queue-item__patient">Eva Bakker &middot; Recall link opened</span>
+                      <span class="chip chip--waiting">Waiting on patient</span>
+                    </div>
+                    <div class="queue-item__meta">Email &middot; Automated</div>
+                    <div class="queue-item__summary">Patient opened the recall link twice but did not complete booking. Second reminder scheduled for tomorrow 10:00.</div>
+                  </div>
+
+                  <div class="queue-item" tabindex="0" role="article">
+                    <div class="queue-item__top">
+                      <span class="queue-item__patient">Marco de Vries &middot; Post-treatment check-in</span>
+                      <span class="chip chip--done">Responded</span>
+                    </div>
+                    <div class="queue-item__meta">WhatsApp &middot; Automated</div>
+                    <div class="queue-item__summary">Patient confirmed no pain or swelling. No further action required. Case will close automatically in 24 h.</div>
+                  </div>
+
+                  <div class="queue-item" tabindex="0" role="article">
+                    <div class="queue-item__top">
+                      <span class="queue-item__patient">Sara Hendriks &middot; Annual checkup overdue</span>
+                      <span class="chip chip--urgent">Needs front desk</span>
+                    </div>
+                    <div class="queue-item__meta">Phone &middot; Front desk</div>
+                    <div class="queue-item__summary">Checkup is 4 months overdue. Automated outreach was unreachable. Manual call required to confirm slot.</div>
+                  </div>
+
+                </div>
+              </article>
+
+              <!-- QUESTIONS -->
+              <article class="queue-section">
+                <div class="queue-section__header">
+                  <span class="queue-section__icon" aria-hidden="true">
+                    <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+                      <circle cx="8" cy="8" r="6"/><path d="M8 11v-1M8 5a2 2 0 010 4"/>
+                    </svg>
+                  </span>
+                  <div>
+                    <div class="queue-section__title">Questions</div>
+                    <div class="queue-section__desc">Operational and patient questions not directly booking-related.</div>
+                  </div>
+                  <span class="queue-section__count" aria-label="2 open cases">2</span>
+                </div>
+
+                <div class="queue-items">
+
+                  <div class="queue-item" tabindex="0" role="article">
+                    <div class="queue-item__top">
+                      <span class="queue-item__patient">Thijs Willems &middot; Insurance coverage question</span>
+                      <span class="chip chip--ready">Ready to answer</span>
+                    </div>
+                    <div class="queue-item__meta">Portal &middot; Automated</div>
+                    <div class="queue-item__summary">Patient asks whether cleaning is covered by his basic insurance. DentalOS has drafted a response based on policy data — awaiting operator approval to send.</div>
+                  </div>
+
+                  <div class="queue-item" tabindex="0" role="article">
+                    <div class="queue-item__top">
+                      <span class="queue-item__patient">Nora Visser &middot; Parking at new location</span>
+                      <span class="chip chip--done">Answered</span>
+                    </div>
+                    <div class="queue-item__meta">WhatsApp &middot; Automated</div>
+                    <div class="queue-item__summary">Automated reply sent with parking instructions. Patient acknowledged. Closed.</div>
+                  </div>
+
+                </div>
+              </article>
+
+            </section>
+
+            <!-- RIGHT: DETAIL / CONVERSATION SUMMARY -->
+            <aside class="detail-panel" aria-label="Case detail">
+
+              <div class="detail-panel__section">
+                <h2 class="detail-panel__section-title">Conversation Summary</h2>
+                <p style="font-size:12px;color:var(--muted);margin:0 0 10px;">Why this case exists and what should happen next.</p>
+
+                <div class="detail-card">
+                  <div class="detail-card__label">Why this case exists</div>
+                  <div class="detail-card__text">Jan asked to move the bridge-planning visit to next week after 14:00. DentalOS linked the appointment but found that the treatment step is still blocked by missing consent.</div>
+                </div>
+
+                <div class="detail-card">
+                  <div class="detail-card__label">Next step</div>
+                  <div class="detail-card__text">Explain the blocker in-channel and offer structured options before routing to a human. Patient needs to sign the estimate first.</div>
+                </div>
+
+                <div class="detail-card">
+                  <div class="detail-card__label">Suggested action</div>
+                  <div class="detail-card__text">Send consent link via WhatsApp and hold the 15:30 slot for 2 h with a provisional reservation.</div>
+                </div>
+              </div>
+
+              <div class="detail-panel__section" style="flex:1;overflow-y:auto;">
+                <h2 class="detail-panel__section-title">Transcript</h2>
+
+                <div class="transcript-item">
+                  <div class="transcript-avatar transcript-avatar--patient" aria-hidden="true">J</div>
+                  <div class="transcript-bubble">
+                    <div class="transcript-speaker">Jan Smit &middot; 13:42</div>
+                    <div class="transcript-text">Hi, can I move my bridge appointment from Friday to next week? Preferably after 14:00.</div>
+                  </div>
+                </div>
+
+                <div class="transcript-item">
+                  <div class="transcript-avatar" aria-hidden="true">D</div>
+                  <div class="transcript-bubble">
+                    <div class="transcript-speaker">DentalOS &middot; 13:42</div>
+                    <div class="transcript-text">Of course, Jan. I found a slot on Tuesday 15 April at 15:30. However, I see that your signed treatment estimate is still pending — that needs to be completed before we can confirm. I&apos;ll send you the link now.</div>
+                  </div>
+                </div>
+
+                <div class="transcript-item">
+                  <div class="transcript-avatar transcript-avatar--patient" aria-hidden="true">J</div>
+                  <div class="transcript-bubble">
+                    <div class="transcript-speaker">Jan Smit &middot; 13:44</div>
+                    <div class="transcript-text">Okay, I&apos;ll sign it today. Can you hold that slot?</div>
+                  </div>
+                </div>
+
+                <div class="transcript-item">
+                  <div class="transcript-avatar" aria-hidden="true">D</div>
+                  <div class="transcript-bubble">
+                    <div class="transcript-speaker">DentalOS &middot; 13:44</div>
+                    <div class="transcript-text">Understood. I&apos;ve placed a 2-hour provisional hold on Tuesday 15:30. A front desk operator will confirm as soon as the consent is received.</div>
+                  </div>
+                </div>
+
+              </div>
+
+            </aside>
+
+          </div><!-- /.dashboard-grid -->
+
+        </main>
+
+      </div><!-- /.main-area -->
+    </div><!-- /.app-shell -->
+
+    <script>
+      // Set greeting based on time of day
+      (function () {
+        const greeting = document.getElementById('js-greeting');
+        const dateEl = document.getElementById('js-date');
+        const now = new Date();
+        const h = now.getHours();
+        const timeOfDay = h < 12 ? 'morning' : h < 17 ? 'afternoon' : 'evening';
+        greeting.textContent = `Good ${timeOfDay}, Lisa`;
+
+        const days = ['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
+        const months = ['January','February','March','April','May','June','July','August','September','October','November','December'];
+        dateEl.textContent = `${days[now.getDay()]}, ${months[now.getMonth()]} ${now.getDate()}, ${now.getFullYear()}`;
+
+        // Work lanes — click to activate
+        document.querySelectorAll('.work-lane-item').forEach(item => {
+          item.addEventListener('click', () => {
+            document.querySelectorAll('.work-lane-item').forEach(el => {
+              el.classList.remove('work-lane-item--active');
+              el.removeAttribute('aria-current');
+            });
+            item.classList.add('work-lane-item--active');
+            item.setAttribute('aria-current', 'true');
+          });
+          item.addEventListener('keydown', e => {
+            if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); item.click(); }
+          });
+        });
+      })();
+    </script>
+
+  </body>
+</html>
