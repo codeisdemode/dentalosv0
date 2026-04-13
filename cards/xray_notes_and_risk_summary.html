@@ -1,0 +1,307 @@
+
+<style>
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500&family=DM+Mono:wght@400;500&display=swap');
+*{box-sizing:border-box;margin:0;padding:0;}
+body{font-family:'DM Sans',sans-serif;background:var(--color-background-tertiary);padding:1.5rem 1rem;}
+.suite{display:flex;flex-direction:column;gap:1rem;max-width:900px;margin:0 auto;}
+.card{background:var(--color-background-primary);border:0.5px solid var(--color-border-tertiary);border-radius:16px;overflow:hidden;}
+.ch{display:flex;justify-content:space-between;align-items:center;padding:12px 18px;border-bottom:0.5px solid var(--color-border-tertiary);}
+.pt{display:flex;align-items:center;gap:8px;}
+.av{width:30px;height:30px;border-radius:50%;background:#E6F1FB;color:#185FA5;font-size:11px;font-weight:500;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+.pn{font-size:13px;font-weight:500;color:var(--color-text-primary);}
+.pd{font-size:10px;color:var(--color-text-tertiary);font-family:'DM Mono',monospace;}
+.bdg{font-size:10px;font-family:'DM Mono',monospace;font-weight:500;padding:3px 9px;border-radius:99px;}
+.cb{padding:16px 18px;}
+.lbl{font-size:10px;font-family:'DM Mono',monospace;color:var(--color-text-tertiary);text-transform:uppercase;letter-spacing:.06em;margin-bottom:8px;}
+.cf{border-top:0.5px solid var(--color-border-tertiary);padding:10px 18px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:6px;}
+
+/* XRAY VIEWER */
+.xray-wrap{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:14px;}
+.xray-frame{background:#111;border-radius:10px;position:relative;overflow:hidden;}
+.xray-canvas{display:block;width:100%;}
+.xray-label{position:absolute;top:8px;left:8px;font-size:10px;font-family:'DM Mono',monospace;color:#aaa;background:rgba(0,0,0,0.6);padding:2px 7px;border-radius:4px;}
+.xray-badge{position:absolute;top:8px;right:8px;font-size:10px;font-family:'DM Mono',monospace;font-weight:500;padding:2px 7px;border-radius:4px;}
+.finding-list{display:flex;flex-direction:column;gap:6px;}
+.fi{display:flex;align-items:flex-start;gap:10px;padding:8px 10px;border-radius:8px;background:var(--color-background-secondary);}
+.fi-dot{width:8px;height:8px;border-radius:50%;margin-top:3px;flex-shrink:0;}
+.fi-text{flex:1;}
+.fi-title{font-size:12px;font-weight:500;color:var(--color-text-primary);}
+.fi-desc{font-size:11px;color:var(--color-text-secondary);margin-top:1px;}
+.fi-tag{font-size:10px;font-family:'DM Mono',monospace;padding:1px 6px;border-radius:4px;margin-left:auto;flex-shrink:0;align-self:flex-start;margin-top:2px;}
+
+/* RISK SUMMARY */
+.risk-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:8px;margin-bottom:14px;}
+.metric{background:var(--color-background-secondary);border-radius:8px;padding:10px 12px;}
+.metric-val{font-size:20px;font-weight:500;color:var(--color-text-primary);line-height:1.1;}
+.metric-lbl{font-size:10px;color:var(--color-text-tertiary);font-family:'DM Mono',monospace;margin-top:3px;}
+.domains{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:14px;}
+.domain{border-radius:8px;padding:10px 12px;border:0.5px solid var(--color-border-tertiary);}
+.domain-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;}
+.domain-title{font-size:11px;font-weight:500;color:var(--color-text-primary);}
+.domain-score{font-size:12px;font-weight:500;font-family:'DM Mono',monospace;}
+.bar-track{height:5px;background:var(--color-background-secondary);border-radius:99px;overflow:hidden;}
+.bar-fill{height:100%;border-radius:99px;}
+.domain-items{margin-top:8px;display:flex;flex-direction:column;gap:4px;}
+.di{display:flex;justify-content:space-between;font-size:11px;}
+.di-label{color:var(--color-text-secondary);}
+.di-val{font-family:'DM Mono',monospace;font-size:10px;}
+.conclusion{border-radius:10px;padding:12px 14px;display:flex;gap:12px;align-items:flex-start;}
+.conc-icon{width:32px;height:32px;border-radius:8px;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+.conc-title{font-size:13px;font-weight:500;color:var(--color-text-primary);margin-bottom:3px;}
+.conc-text{font-size:11px;color:var(--color-text-secondary);line-height:1.5;}
+.tag-row{display:flex;flex-wrap:wrap;gap:5px;margin-top:8px;}
+</style>
+
+<div class="suite">
+
+<!-- X-RAY NOTES CARD -->
+<div class="card">
+  <div class="ch">
+    <div class="pt">
+      <div class="av">JD</div>
+      <div>
+        <div class="pn">Jan de Vries</div>
+        <div class="pd">Röntgenverslag · 05-04-2026</div>
+      </div>
+    </div>
+    <div style="display:flex;gap:6px;align-items:center;">
+      <span class="bdg" style="background:#EEEDFE;color:#3C3489;">BW + OPT</span>
+      <span class="bdg" style="background:var(--color-background-secondary);color:var(--color-text-secondary);">Dr. T. Bakker</span>
+    </div>
+  </div>
+  <div class="cb">
+    <div class="lbl">Opnamen</div>
+    <div class="xray-wrap">
+      <div class="xray-frame">
+        <canvas class="xray-canvas" id="bwLeft" height="140"></canvas>
+        <div class="xray-label">BW links</div>
+        <div class="xray-badge" style="background:rgba(239,159,39,0.85);color:#412402;">2 bevindingen</div>
+      </div>
+      <div class="xray-frame">
+        <canvas class="xray-canvas" id="bwRight" height="140"></canvas>
+        <div class="xray-label">BW rechts</div>
+        <div class="xray-badge" style="background:rgba(99,153,34,0.75);color:#173404;">Normaal</div>
+      </div>
+    </div>
+    <div class="lbl">Bevindingen</div>
+    <div class="finding-list">
+      <div class="fi">
+        <div class="fi-dot" style="background:#E24B4A;"></div>
+        <div class="fi-text">
+          <div class="fi-title">Interproximaal botverlies — 46</div>
+          <div class="fi-desc">Horizontaal botverlies mesiale zijde, geschat 30% wortellengte. Furcatie betrokkenheid graad II.</div>
+        </div>
+        <span class="fi-tag" style="background:#FCEBEB;color:#791F1F;">Urgent</span>
+      </div>
+      <div class="fi">
+        <div class="fi-dot" style="background:#EF9F27;"></div>
+        <div class="fi-text">
+          <div class="fi-title">Carieuze laesie — 25 distaal</div>
+          <div class="fi-desc">Radiolucentie in glazuur/dentine grens distale vlak. Geen pulpabetrokkenheid zichtbaar.</div>
+        </div>
+        <span class="fi-tag" style="background:#FAEEDA;color:#633806;">Behandelen</span>
+      </div>
+      <div class="fi">
+        <div class="fi-dot" style="background:#EF9F27;"></div>
+        <div class="fi-text">
+          <div class="fi-title">Secundaire cariës — 36 mesio-occlusaal</div>
+          <div class="fi-desc">Radiolucentie onder bestaande composietvulling. Overweeg vervanging of kroon.</div>
+        </div>
+        <span class="fi-tag" style="background:#FAEEDA;color:#633806;">Monitoren</span>
+      </div>
+      <div class="fi">
+        <div class="fi-dot" style="background:#378ADD;"></div>
+        <div class="fi-text">
+          <div class="fi-title">Wortelkanaalvulling — 27</div>
+          <div class="fi-desc">Adequate vulling tot apex, periapicaal weefsel normaal. Geen afwijkingen.</div>
+        </div>
+        <span class="fi-tag" style="background:#E6F1FB;color:#0C447C;">Stabiel</span>
+      </div>
+      <div class="fi">
+        <div class="fi-dot" style="background:#639922;"></div>
+        <div class="fi-text">
+          <div class="fi-title">Overige elementen</div>
+          <div class="fi-desc">Geen interproximale cariës, botniveaus normaal, laminadura intact voor elementen 11–15, 21–24, 31–35, 41–45.</div>
+        </div>
+        <span class="fi-tag" style="background:#EAF3DE;color:#27500A;">Normaal</span>
+      </div>
+    </div>
+  </div>
+  <div class="cf">
+    <span style="font-size:11px;font-family:'DM Mono',monospace;color:var(--color-text-tertiary);">Volgende röntgen: 24 mnd · OPT aanbevolen bij recall 2028</span>
+    <div style="display:flex;gap:5px;">
+      <span class="bdg" style="background:#FCEBEB;color:#791F1F;">Urgent ×1</span>
+      <span class="bdg" style="background:#FAEEDA;color:#633806;">Actie ×2</span>
+      <span class="bdg" style="background:#E6F1FB;color:#0C447C;">Stabiel ×2</span>
+    </div>
+  </div>
+</div>
+
+<!-- PATIENT RISK SUMMARY -->
+<div class="card">
+  <div class="ch">
+    <div class="pt">
+      <div class="av">JD</div>
+      <div>
+        <div class="pn">Jan de Vries · Patiëntprofiel</div>
+        <div class="pd">40 jaar · Mannelijk · BSN 123456789</div>
+      </div>
+    </div>
+    <div style="display:flex;gap:6px;align-items:center;">
+      <span class="bdg" style="background:#FAEEDA;color:#633806;">Gemiddeld risico</span>
+      <span class="bdg" style="background:var(--color-background-secondary);color:var(--color-text-secondary);">05-04-2026</span>
+    </div>
+  </div>
+  <div class="cb">
+    <div class="lbl">Klinische parameters</div>
+    <div class="risk-grid">
+      <div class="metric">
+        <div class="metric-val" style="color:#E24B4A;">7mm</div>
+        <div class="metric-lbl">Max pocket</div>
+      </div>
+      <div class="metric">
+        <div class="metric-val" style="color:#BA7517;">12%</div>
+        <div class="metric-lbl">BOP score</div>
+      </div>
+      <div class="metric">
+        <div class="metric-val" style="color:#BA7517;">2</div>
+        <div class="metric-lbl">Actieve cariës</div>
+      </div>
+      <div class="metric">
+        <div class="metric-val" style="color:#639922;">4</div>
+        <div class="metric-lbl">Furcaties</div>
+      </div>
+    </div>
+    <div class="lbl">Risico per domein</div>
+    <div class="domains">
+      <div class="domain">
+        <div class="domain-head">
+          <span class="domain-title">Parodontaal</span>
+          <span class="domain-score" style="color:#E24B4A;">Hoog</span>
+        </div>
+        <div class="bar-track"><div class="bar-fill" style="width:75%;background:#E24B4A;"></div></div>
+        <div class="domain-items">
+          <div class="di"><span class="di-label">Pocketdiepte ≥6mm</span><span class="di-val" style="color:#E24B4A;">5 locaties</span></div>
+          <div class="di"><span class="di-label">Furcatie graad II</span><span class="di-val" style="color:#BA7517;">4 elementen</span></div>
+          <div class="di"><span class="di-label">Botverlies BW</span><span class="di-val" style="color:#E24B4A;">30% elem. 46</span></div>
+        </div>
+      </div>
+      <div class="domain">
+        <div class="domain-head">
+          <span class="domain-title">Cariës</span>
+          <span class="domain-score" style="color:#BA7517;">Gemiddeld</span>
+        </div>
+        <div class="bar-track"><div class="bar-fill" style="width:48%;background:#EF9F27;"></div></div>
+        <div class="domain-items">
+          <div class="di"><span class="di-label">Actieve laesies</span><span class="di-val" style="color:#BA7517;">2</span></div>
+          <div class="di"><span class="di-label">Secundaire cariës</span><span class="di-val" style="color:#BA7517;">1</span></div>
+          <div class="di"><span class="di-label">Dieet risico</span><span class="di-val" style="color:#639922;">Laag</span></div>
+        </div>
+      </div>
+      <div class="domain">
+        <div class="domain-head">
+          <span class="domain-title">Hygiëne</span>
+          <span class="domain-score" style="color:#BA7517;">Matig</span>
+        </div>
+        <div class="bar-track"><div class="bar-fill" style="width:42%;background:#EF9F27;"></div></div>
+        <div class="domain-items">
+          <div class="di"><span class="di-label">Plaque index</span><span class="di-val" style="color:#BA7517;">28%</span></div>
+          <div class="di"><span class="di-label">Interproximaal</span><span class="di-val" style="color:#E24B4A;">Onregelmatig</span></div>
+          <div class="di"><span class="di-label">Spoelen</span><span class="di-val" style="color:#639922;">2×/dag</span></div>
+        </div>
+      </div>
+      <div class="domain">
+        <div class="domain-head">
+          <span class="domain-title">Systemisch</span>
+          <span class="domain-score" style="color:#639922;">Laag</span>
+        </div>
+        <div class="bar-track"><div class="bar-fill" style="width:18%;background:#639922;"></div></div>
+        <div class="domain-items">
+          <div class="di"><span class="di-label">Roken</span><span class="di-val" style="color:#639922;">Nee</span></div>
+          <div class="di"><span class="di-label">Diabetes</span><span class="di-val" style="color:#639922;">Nee</span></div>
+          <div class="di"><span class="di-label">Medicatie effect</span><span class="di-val" style="color:#639922;">Geen</span></div>
+        </div>
+      </div>
+    </div>
+    <div class="conclusion" style="background:#FAEEDA;">
+      <div class="conc-icon" style="background:#FAC775;">
+        <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M8 2L9.8 6.2H14.2L10.8 8.8L12 13L8 10.4L4 13L5.2 8.8L1.8 6.2H6.2L8 2Z" stroke="#633806" stroke-width="1.3" stroke-linejoin="round"/></svg>
+      </div>
+      <div style="flex:1;">
+        <div class="conc-title" style="color:#633806;">Prioriteit: parodontale fase 1</div>
+        <div class="conc-text" style="color:#854F0B;">Parodontale problematiek domineert het risicoprofiel. Start met subgingivale reiniging 46 + furcatiebehandeling. Daarna cariësbehandeling 25 en evaluatie 36. Recall terugbrengen naar 3 maanden.</div>
+        <div class="tag-row">
+          <span class="bdg" style="background:#EF9F27;color:#412402;">3-mnd recall</span>
+          <span class="bdg" style="background:#EF9F27;color:#412402;">Fluoride 5000ppm</span>
+          <span class="bdg" style="background:#EF9F27;color:#412402;">Interdentaal instrueren</span>
+          <span class="bdg" style="background:#EF9F27;color:#412402;">Röntgen 24 mnd</span>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="cf">
+    <span style="font-size:11px;font-family:'DM Mono',monospace;color:var(--color-text-tertiary);">Classificatie: AAP Parodontitis Graad III · Stadium B</span>
+    <button onclick="sendPrompt('Leg AAP parodontitis classificatie graad III stadium B uit voor Jan de Vries en wat dit betekent voor het behandelplan')" style="font-size:11px;font-family:\'DM Mono\',monospace;padding:4px 10px;border-radius:99px;cursor:pointer;">Uitleg AAP classificatie ↗</button>
+  </div>
+</div>
+
+</div>
+
+<script>
+function drawXray(id, findings) {
+  const canvas = document.getElementById(id);
+  if (!canvas) return;
+  const w = canvas.offsetWidth || 380;
+  canvas.width = w;
+  canvas.height = 140;
+  const ctx = canvas.getContext('2d');
+  ctx.fillStyle = '#0e0e0e';
+  ctx.fillRect(0, 0, w, 140);
+
+  const teeth = 4;
+  const tw = (w - 20) / teeth;
+  const pad = 10;
+
+  for (let i = 0; i < teeth; i++) {
+    const x = pad + i * tw + 4;
+    const tw2 = tw - 8;
+    const brightness = 55 + Math.random() * 20;
+    ctx.fillStyle = `rgb(${brightness},${brightness},${brightness+5})`;
+    const th = 55 + Math.random() * 20;
+    const ty = 140 - th - 30;
+    const r = 5;
+    ctx.beginPath();
+    ctx.moveTo(x+r,ty); ctx.lineTo(x+tw2-r,ty);
+    ctx.quadraticCurveTo(x+tw2,ty,x+tw2,ty+r);
+    ctx.lineTo(x+tw2,ty+th); ctx.lineTo(x,ty+th); ctx.lineTo(x,ty+r);
+    ctx.quadraticCurveTo(x,ty,x+r,ty); ctx.closePath(); ctx.fill();
+    const rb = brightness - 15;
+    ctx.fillStyle = `rgb(${rb},${rb},${rb})`;
+    for (let r2=0; r2<2; r2++) {
+      const rx = x + 4 + r2 * (tw2/2 - 4);
+      const rw2 = tw2/2 - 6;
+      const rh = 35 + Math.random()*15;
+      ctx.fillRect(rx, ty+th, rw2, rh);
+    }
+  }
+
+  findings.forEach(f => {
+    ctx.strokeStyle = f.color;
+    ctx.lineWidth = 1.5;
+    ctx.setLineDash([3,2]);
+    ctx.strokeRect(f.x * w, f.y, f.w * w, f.h);
+    ctx.setLineDash([]);
+    ctx.fillStyle = f.color;
+    ctx.font = '500 9px DM Mono, monospace';
+    ctx.fillText(f.label, f.x * w + 3, f.y - 3);
+  });
+}
+
+setTimeout(() => {
+  drawXray('bwLeft', [
+    {x:.05, y:45, w:.42, h:55, color:'#EF9F27', label:'Cariës 25'},
+    {x:.52, y:30, w:.44, h:70, color:'#E24B4A', label:'Botverlies 46'}
+  ]);
+  drawXray('bwRight', []);
+}, 100);
+</script>

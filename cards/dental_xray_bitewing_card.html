@@ -1,0 +1,400 @@
+
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600&family=DM+Mono:wght@400;500&display=swap');
+
+  .dental-wrap {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 2.5rem 1rem;
+    background: var(--color-background-tertiary);
+    border-radius: var(--border-radius-xl);
+    font-family: 'DM Sans', sans-serif;
+  }
+
+  .dental-card {
+    width: 340px;
+    background: var(--color-background-primary);
+    border-radius: 24px;
+    border: 0.5px solid var(--color-border-tertiary);
+    overflow: hidden;
+  }
+
+  .card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 16px 20px 0;
+  }
+
+  .live-badge {
+    display: flex;
+    align-items: center;
+    gap: 7px;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    color: var(--color-text-secondary);
+    font-family: 'DM Mono', monospace;
+    text-transform: uppercase;
+  }
+
+  .live-dot {
+    width: 8px; height: 8px;
+    border-radius: 50%;
+    background: #1D9E75;
+    animation: pulse-g 2s ease-in-out infinite;
+    flex-shrink: 0;
+  }
+
+  @keyframes pulse-g {
+    0%,100%{opacity:1;transform:scale(1)}
+    50%{opacity:.35;transform:scale(.8)}
+  }
+
+  .ai-badge {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    background: #E6F1FB;
+    color: #185FA5;
+    font-size: 11.5px;
+    font-weight: 500;
+    padding: 5px 11px 5px 8px;
+    border-radius: 99px;
+  }
+
+  .ai-dot {
+    width: 6px; height: 6px;
+    border-radius: 50%;
+    background: #378ADD;
+    flex-shrink: 0;
+  }
+
+  .xray-zone {
+    padding: 18px 20px 0;
+  }
+
+  #xray {
+    width: 100%;
+    border-radius: 8px;
+    display: block;
+  }
+
+  .xray-sub {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    padding: 8px 0 14px;
+    font-size: 11px;
+    font-family: 'DM Mono', monospace;
+    color: var(--color-text-tertiary);
+    letter-spacing: 0.04em;
+  }
+
+  .xsub-dot {
+    width: 5px; height: 5px;
+    border-radius: 50%;
+    background: #EF9F27;
+    flex-shrink: 0;
+    animation: pulse-a 1.3s ease-in-out infinite;
+  }
+
+  @keyframes pulse-a {
+    0%,100%{opacity:1}
+    50%{opacity:.15}
+  }
+
+  .speech-bubble {
+    margin: 0 20px 20px;
+    background: var(--color-background-secondary);
+    border-radius: 4px 16px 16px 16px;
+    padding: 14px 16px;
+  }
+
+  .speech-text {
+    font-size: 14px;
+    color: var(--color-text-primary);
+    line-height: 1.6;
+    margin: 0;
+  }
+
+  .actions-section {
+    border-top: 0.5px solid var(--color-border-tertiary);
+    padding: 16px 20px 20px;
+  }
+
+  .actions-label {
+    font-size: 10.5px;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    color: var(--color-text-tertiary);
+    text-transform: uppercase;
+    font-family: 'DM Mono', monospace;
+    margin-bottom: 12px;
+  }
+
+  .action-item {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 12px 14px;
+    border-radius: var(--border-radius-lg);
+    border: 0.5px solid var(--color-border-tertiary);
+    margin-bottom: 8px;
+    background: var(--color-background-primary);
+    animation: slide-in 0.4s ease both;
+  }
+
+  .action-item:last-child { margin-bottom: 0; }
+  .action-item:nth-child(1){animation-delay:.1s}
+  .action-item:nth-child(2){animation-delay:.25s}
+
+  @keyframes slide-in {
+    from{opacity:0;transform:translateY(6px)}
+    to{opacity:1;transform:translateY(0)}
+  }
+
+  .action-icon {
+    width: 36px; height: 36px;
+    border-radius: 10px;
+    display: flex; align-items: center; justify-content: center;
+    flex-shrink: 0;
+  }
+
+  .icon-cal { background: #E6F1FB; }
+  .icon-doc { background: #EEEDFE; }
+
+  .action-text { flex: 1; min-width: 0; }
+
+  .action-title {
+    font-size: 14px; font-weight: 500;
+    color: var(--color-text-primary);
+    margin: 0 0 2px;
+  }
+
+  .action-sub {
+    font-size: 12px;
+    color: var(--color-text-secondary);
+    margin: 0;
+    white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+  }
+
+  .check-icon {
+    width: 22px; height: 22px;
+    border-radius: 50%;
+    background: #EAF3DE;
+    display: flex; align-items: center; justify-content: center;
+    flex-shrink: 0;
+  }
+</style>
+
+<div class="dental-wrap">
+  <div class="dental-card">
+
+    <div class="card-header">
+      <div class="live-badge">
+        <div class="live-dot"></div>
+        Röntgenanalyse
+      </div>
+      <div class="ai-badge">
+        <div class="ai-dot"></div>
+        AI-diagnose
+      </div>
+    </div>
+
+    <div class="xray-zone">
+      <canvas id="xray"></canvas>
+      <div class="xray-sub">
+        <div class="xsub-dot"></div>
+        Cariës gedetecteerd · element 46
+      </div>
+    </div>
+
+    <div style="margin: 0 20px 20px;">
+      <div class="speech-bubble">
+        <p class="speech-text">"Beginnende interproximale cariës op element 46 (mesiale vlak). Botnivaeu binnen normaalwaarden."</p>
+      </div>
+    </div>
+
+    <div class="actions-section">
+      <div class="actions-label">Gedetecteerde acties</div>
+
+      <div class="action-item">
+        <div class="action-icon icon-cal">
+          <svg width="18" height="18" viewBox="0 0 18 18" fill="none">
+            <rect x="2" y="3.5" width="14" height="12" rx="2" stroke="#378ADD" stroke-width="1.4"/>
+            <line x1="2" y1="7" x2="16" y2="7" stroke="#378ADD" stroke-width="1.4"/>
+            <line x1="6" y1="2" x2="6" y2="5" stroke="#378ADD" stroke-width="1.4" stroke-linecap="round"/>
+            <line x1="12" y1="2" x2="12" y2="5" stroke="#378ADD" stroke-width="1.4" stroke-linecap="round"/>
+          </svg>
+        </div>
+        <div class="action-text">
+          <p class="action-title">Afspraak inplannen</p>
+          <p class="action-sub">Restauratie 46 · 45 min</p>
+        </div>
+        <div class="check-icon">
+          <svg width="12" height="12" viewBox="0 0 12 12" fill="none">
+            <path d="M2 6.5L4.5 9L10 3.5" stroke="#639922" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </div>
+      </div>
+
+      <div class="action-item">
+        <div class="action-icon icon-doc">
+          <svg width="18" height="18" viewBox="0 0 18 18" fill="none">
+            <rect x="3" y="2" width="12" height="14" rx="2" stroke="#7F77DD" stroke-width="1.4"/>
+            <line x1="6" y1="6" x2="12" y2="6" stroke="#7F77DD" stroke-width="1.4" stroke-linecap="round"/>
+            <line x1="6" y1="9" x2="12" y2="9" stroke="#7F77DD" stroke-width="1.4" stroke-linecap="round"/>
+            <line x1="6" y1="12" x2="9.5" y2="12" stroke="#7F77DD" stroke-width="1.4" stroke-linecap="round"/>
+          </svg>
+        </div>
+        <div class="action-text">
+          <p class="action-title">Bevinding vastleggen</p>
+          <p class="action-sub">Cariës 46 mesiolateraal…</p>
+        </div>
+        <div class="check-icon">
+          <svg width="12" height="12" viewBox="0 0 12 12" fill="none">
+            <path d="M2 6.5L4.5 9L10 3.5" stroke="#639922" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<script>
+const canvas = document.getElementById('xray');
+const ctx = canvas.getContext('2d');
+const W = 600, H = 134;
+canvas.width = W;
+canvas.height = H;
+
+const CY = 62;
+const CROWN_H = 22;
+const ROOT_H = 26;
+
+const COLS = [
+  {x:55,  w:50, ru:1, rl:1, label:'14/44', caries:false},
+  {x:111, w:55, ru:2, rl:1, label:'15/45', caries:false},
+  {x:173, w:74, ru:3, rl:2, label:'16/46', caries:true},
+  {x:255, w:76, ru:3, rl:2, label:'17/47', caries:false},
+];
+
+const lastC = COLS[COLS.length-1];
+const totalW = lastC.x + lastC.w - COLS[0].x;
+const ox = (W - totalW) / 2 - COLS[0].x;
+
+function rr(x, y, w, h, r) {
+  ctx.beginPath();
+  ctx.moveTo(x+r, y);
+  ctx.lineTo(x+w-r, y);
+  ctx.arcTo(x+w,y, x+w,y+r, r);
+  ctx.lineTo(x+w, y+h-r);
+  ctx.arcTo(x+w,y+h, x+w-r,y+h, r);
+  ctx.lineTo(x+r, y+h);
+  ctx.arcTo(x,y+h, x,y+h-r, r);
+  ctx.lineTo(x, y+r);
+  ctx.arcTo(x,y, x+r,y, r);
+  ctx.closePath();
+}
+
+function drawRoots(x, w, n, y, h) {
+  const gap = 3;
+  const rw = (w - 10 - (n-1)*gap) / n;
+  for (let i = 0; i < n; i++) {
+    const rx = x + 5 + i*(rw+gap);
+    ctx.fillStyle = '#707070';
+    rr(rx, y, rw, h, 3);
+    ctx.fill();
+  }
+}
+
+function drawTooth(x, w, upper, nRoots) {
+  x = x + ox;
+  const ct = upper ? CY - CROWN_H : CY;
+  const rootY = upper ? ct - ROOT_H + 4 : ct + CROWN_H - 4;
+
+  drawRoots(x, w, nRoots, rootY, ROOT_H);
+
+  ctx.fillStyle = '#c8c8c8';
+  rr(x, ct, w, CROWN_H, 4);
+  ctx.fill();
+
+  ctx.fillStyle = '#a2a2a2';
+  rr(x+3, ct+3, w-6, CROWN_H-6, 2);
+  ctx.fill();
+
+  ctx.fillStyle = '#4a4a4a';
+  ctx.fillRect(x + w/2 - 1.5, ct+5, 3, CROWN_H-10);
+}
+
+let t0 = null;
+
+function frame(ts) {
+  if (!t0) t0 = ts;
+  const t = ts - t0;
+
+  ctx.fillStyle = '#0c0c0c';
+  ctx.fillRect(0, 0, W, H);
+
+  ctx.strokeStyle = '#1f1f1f';
+  ctx.lineWidth = 1.5;
+  ctx.setLineDash([5,5]);
+  const bx0 = COLS[0].x + ox - 14;
+  const bx1 = lastC.x + lastC.w + ox + 14;
+  ctx.beginPath(); ctx.moveTo(bx0, CY-CROWN_H+5); ctx.lineTo(bx1, CY-CROWN_H+5); ctx.stroke();
+  ctx.beginPath(); ctx.moveTo(bx0, CY+CROWN_H-5); ctx.lineTo(bx1, CY+CROWN_H-5); ctx.stroke();
+  ctx.setLineDash([]);
+
+  COLS.forEach(c => {
+    drawTooth(c.x, c.w, true, c.ru);
+    drawTooth(c.x, c.w, false, c.rl);
+  });
+
+  const cc = COLS.find(c => c.caries);
+  if (cc) {
+    const cx = cc.x + ox;
+    const cw = cc.w;
+    const pulse = 0.5 + 0.5 * Math.sin(t / 480);
+
+    ctx.strokeStyle = `rgba(239,159,39,${0.3 + 0.4*pulse})`;
+    ctx.lineWidth = 2;
+    rr(cx-4, CY-CROWN_H-4, cw+8, CROWN_H*2+8, 6);
+    ctx.stroke();
+
+    ctx.strokeStyle = `rgba(239,159,39,${0.6 + 0.4*pulse})`;
+    ctx.lineWidth = 1.5;
+    rr(cx-4, CY-CROWN_H-4, cw+8, CROWN_H*2+8, 6);
+    ctx.stroke();
+
+    ctx.fillStyle = `rgba(239,159,39,${0.65 + 0.35*pulse})`;
+    ctx.font = '500 14px DM Mono, monospace';
+    ctx.textAlign = 'center';
+    ctx.fillText('46', cx + cw/2, CY + CROWN_H + ROOT_H + 14);
+
+    ctx.fillStyle = `rgba(239,159,39,${0.55 + 0.35*pulse})`;
+    ctx.font = '400 11px DM Mono, monospace';
+    ctx.fillText('cariës', cx + cw/2, CY + CROWN_H + ROOT_H + 26);
+  }
+
+  const cycle = 4200;
+  const phase = (t % cycle) / cycle;
+  if (phase < 0.68) {
+    const scanX = (phase / 0.68) * W;
+
+    ctx.strokeStyle = 'rgba(74,195,230,0.18)';
+    ctx.lineWidth = 14;
+    ctx.beginPath(); ctx.moveTo(scanX, 0); ctx.lineTo(scanX, H); ctx.stroke();
+
+    ctx.strokeStyle = 'rgba(74,195,230,0.55)';
+    ctx.lineWidth = 1.2;
+    ctx.beginPath(); ctx.moveTo(scanX, 0); ctx.lineTo(scanX, H); ctx.stroke();
+  }
+
+  requestAnimationFrame(frame);
+}
+
+requestAnimationFrame(frame);
+</script>

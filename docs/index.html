@@ -1,0 +1,222 @@
+<!doctype html>
+<html lang="nl">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>DentalOS Docs</title>
+    <meta
+      name="description"
+      content="DentalOS documentatie, API reference en changelog."
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link rel="stylesheet" href="https://rsms.me/inter/inter.css" />
+    <link rel="icon" href="../favicon.ico" sizes="any" />
+    <link rel="icon" href="../favicon.svg" type="image/svg+xml" />
+    <link rel="stylesheet" href="./docs.css" />
+  </head>
+  <body>
+    <div class="docs-page">
+      <header class="docs-topbar">
+        <div class="docs-topbar__inner">
+          <a class="docs-brand" href="../" aria-label="DentalOS home">
+            <span class="docs-brand__badge">D</span>
+            <span class="docs-brand__text">dentalOS docs</span>
+          </a>
+
+          <button class="docs-search" type="button" aria-label="Zoeken in docs">
+            <span>Zoek documentatie...</span>
+            <kbd>Ctrl K</kbd>
+          </button>
+
+          <nav class="docs-topnav">
+            <a href="../">Landing</a>
+            <a href="#documentation">Documentation</a>
+            <a href="#api-reference">API Reference</a>
+            <a href="#changelog">Changelog</a>
+          </nav>
+
+          <a class="docs-cta" href="../#demo">Demo aanvragen</a>
+        </div>
+      </header>
+
+      <main class="docs-layout">
+        <aside class="docs-sidebar">
+          <div class="docs-sidebar__group">
+            <p class="docs-sidebar__label">Getting Started</p>
+            <a href="#introduction" data-doc-link>Introduction</a>
+            <a href="#quickstart" data-doc-link>Quickstart</a>
+            <a href="#workflows" data-doc-link>Autonome workflows</a>
+          </div>
+
+          <div class="docs-sidebar__group">
+            <p class="docs-sidebar__label">Reference</p>
+            <a href="#documentation" data-doc-link>Documentation</a>
+            <a href="#api-reference" data-doc-link>API Reference</a>
+            <a href="#auth" data-doc-link>Authentication</a>
+            <a href="#webhooks" data-doc-link>Webhooks</a>
+          </div>
+
+          <div class="docs-sidebar__group">
+            <p class="docs-sidebar__label">Product</p>
+            <a href="#changelog" data-doc-link>Changelog</a>
+            <a href="#roadmap" data-doc-link>Roadmap</a>
+          </div>
+        </aside>
+
+        <article class="docs-content" id="content-area">
+          <section class="docs-section" id="introduction">
+            <p class="docs-eyebrow">Documentation</p>
+            <h1>DentalOS Documentation</h1>
+            <p>
+              DentalOS is het AI besturingssysteem voor tandartspraktijken. Deze docs geven je een
+              helder overzicht van implementatie, API-koppelingen en operationele workflows.
+            </p>
+          </section>
+
+          <section class="docs-section" id="quickstart">
+            <h2>Quickstart</h2>
+            <ol>
+              <li>Maak een praktijkomgeving aan en configureer locatie-instellingen.</li>
+              <li>Koppel agenda en EPD met de beschikbare connectors.</li>
+              <li>Activeer communicatieflows voor reminders, recalls en escalaties.</li>
+              <li>Monitor uitzonderingen in de live operations feed.</li>
+            </ol>
+            <div class="docs-code">
+              <pre><code>curl -X POST https://api.dentalos.ai/v1/practices \
+  -H "Authorization: Bearer YOUR_API_KEY" \
+  -H "Content-Type: application/json" \
+  -d '{"name":"Clinic Noord","timezone":"Europe/Amsterdam"}'</code></pre>
+            </div>
+          </section>
+
+          <section class="docs-section" id="workflows">
+            <h2>Autonome workflows</h2>
+            <p>
+              Planning, patiëntcommunicatie, declaraties en documentatie draaien continu op basis
+              van praktijkregels en uitzonderingsroutes.
+            </p>
+            <ul>
+              <li>Herplanning, no-show opvolging en wachtlijstmatching op basis van agenda-capaciteit.</li>
+              <li>WhatsApp, telefoon en e-mail flows met automatische escalatie naar het team.</li>
+              <li>Consult output direct naar gestructureerde notities, acties en follow-up taken.</li>
+            </ul>
+          </section>
+
+          <section class="docs-section" id="documentation">
+            <h2>Documentation</h2>
+            <p>
+              Core guides voor onboarding, rollen en beveiliging. Gebruik dit als startpunt voor
+              productteams en implementatiepartners.
+            </p>
+            <ul>
+              <li>Practice setup en multi-location beheer</li>
+              <li>Rollen, rechten en audit logging</li>
+              <li>Uitzonderingsbeheer en fallback processen</li>
+            </ul>
+          </section>
+
+          <section class="docs-section" id="api-reference">
+            <h2>API Reference</h2>
+            <p>REST API voor practices, appointments, claims en communications.</p>
+            <div class="docs-table-wrap">
+              <table class="docs-table">
+                <thead>
+                  <tr>
+                    <th>Endpoint</th>
+                    <th>Methode</th>
+                    <th>Doel</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td><code>/v1/practices</code></td>
+                    <td><span class="method method-post">POST</span></td>
+                    <td>Nieuwe praktijk registreren</td>
+                  </tr>
+                  <tr>
+                    <td><code>/v1/appointments</code></td>
+                    <td><span class="method method-get">GET</span></td>
+                    <td>Afspraken en status ophalen</td>
+                  </tr>
+                  <tr>
+                    <td><code>/v1/communications/send</code></td>
+                    <td><span class="method method-post">POST</span></td>
+                    <td>Outbound bericht of call triggeren</td>
+                  </tr>
+                  <tr>
+                    <td><code>/v1/claims/batches</code></td>
+                    <td><span class="method method-post">POST</span></td>
+                    <td>Declaratiebatch indienen</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </section>
+
+          <section class="docs-section" id="auth">
+            <h2>Authentication</h2>
+            <p>Gebruik bearer tokens voor server-to-server calls.</p>
+            <div class="docs-code">
+              <pre><code>Authorization: Bearer YOUR_API_KEY</code></pre>
+            </div>
+          </section>
+
+          <section class="docs-section" id="webhooks">
+            <h2>Webhooks</h2>
+            <p>Realtime events voor belangrijke praktijkacties.</p>
+            <ul>
+              <li><code>appointment.rescheduled</code></li>
+              <li><code>communication.escalated</code></li>
+              <li><code>claim.exception.flagged</code></li>
+            </ul>
+          </section>
+
+          <section class="docs-section" id="changelog">
+            <h2>Changelog</h2>
+            <div class="docs-changelog">
+              <article>
+                <p class="docs-changelog__date">April 2026</p>
+                <h3>v0.9.0 - Clinical output pipeline</h3>
+                <p>Consult capture output nu direct beschikbaar voor dossierverwerking en acties.</p>
+              </article>
+              <article>
+                <p class="docs-changelog__date">Maart 2026</p>
+                <h3>v0.8.2 - Recall optimizer</h3>
+                <p>Nieuwe ruleset voor automatische recall-voorstellen op basis van agenda capaciteit.</p>
+              </article>
+              <article>
+                <p class="docs-changelog__date">Februari 2026</p>
+                <h3>v0.8.0 - Communications API</h3>
+                <p>Nieuwe endpoints voor outbound messaging en callback orchestration.</p>
+              </article>
+            </div>
+          </section>
+
+          <section class="docs-section" id="roadmap">
+            <h2>Roadmap</h2>
+            <p>
+              Q2 focus: deeper practice analytics, VECOZO exception loops, and expanded webhook
+              coverage.
+            </p>
+          </section>
+        </article>
+
+        <aside class="docs-toc">
+          <p class="docs-toc__label">On this page</p>
+          <a href="#introduction" data-doc-link>Introduction</a>
+          <a href="#quickstart" data-doc-link>Quickstart</a>
+          <a href="#workflows" data-doc-link>Autonome workflows</a>
+          <a href="#documentation" data-doc-link>Documentation</a>
+          <a href="#api-reference" data-doc-link>API Reference</a>
+          <a href="#auth" data-doc-link>Authentication</a>
+          <a href="#webhooks" data-doc-link>Webhooks</a>
+          <a href="#changelog" data-doc-link>Changelog</a>
+          <a href="#roadmap" data-doc-link>Roadmap</a>
+        </aside>
+      </main>
+    </div>
+
+    <script type="module" src="./docs.js"></script>
+  </body>
+</html>

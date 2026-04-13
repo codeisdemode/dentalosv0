@@ -1,0 +1,360 @@
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500&family=DM+Mono:wght@400;500&display=swap');
+
+  :root {
+    --color-background-primary: #ffffff;
+    --color-background-secondary: #f5f5f4;
+    --color-background-tertiary: #f8f7f4;
+    --color-border-tertiary: #e7e5e4;
+    --color-text-primary: #18181b;
+    --color-text-secondary: #52525b;
+    --color-text-tertiary: #71717a;
+    --border-radius-xl: 20px;
+  }
+
+  body {
+    margin: 0;
+    background: transparent;
+  }
+
+  .wrap {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    padding: 0;
+    background: var(--color-background-tertiary);
+    border-radius: var(--border-radius-xl);
+    font-family: 'DM Sans', sans-serif;
+    box-sizing: border-box;
+  }
+
+  .card {
+    width: 100%;
+    background: var(--color-background-primary);
+    border-radius: 20px;
+    border: 0.5px solid var(--color-border-tertiary);
+    overflow: hidden;
+    box-sizing: border-box;
+  }
+
+  .card-head {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 14px 20px;
+    border-bottom: 0.5px solid var(--color-border-tertiary);
+  }
+
+  .patient { display: flex; align-items: center; gap: 10px; }
+
+  .avatar {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    background: #e6f1fb;
+    color: #185fa5;
+    font-size: 12px;
+    font-weight: 500;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .pname { font-size: 14px; font-weight: 500; color: var(--color-text-primary); }
+  .pdob { font-size: 11px; color: var(--color-text-tertiary); font-family: 'DM Mono', monospace; }
+
+  .head-badges { display: flex; gap: 8px; align-items: center; }
+
+  .badge {
+    font-size: 10.5px;
+    font-family: 'DM Mono', monospace;
+    font-weight: 500;
+    padding: 4px 10px;
+    border-radius: 99px;
+  }
+
+  .badge-date { background: var(--color-background-secondary); color: var(--color-text-secondary); }
+  .badge-ok { background: #eaf3de; color: #27500a; }
+
+  .chart-area { padding: 16px 20px 12px; }
+
+  canvas#odo { display: block; width: 100%; }
+
+  .legend-row {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    padding: 10px 20px 14px;
+    border-top: 0.5px solid var(--color-border-tertiary);
+    flex-wrap: wrap;
+  }
+
+  .leg-item { display: flex; align-items: center; gap: 5px; font-size: 11px; color: var(--color-text-secondary); }
+  .leg-dot { width: 9px; height: 9px; border-radius: 50%; flex-shrink: 0; }
+
+  .footer {
+    border-top: 0.5px solid var(--color-border-tertiary);
+    padding: 12px 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 12px;
+  }
+
+  .findings-label {
+    font-size: 11px;
+    color: var(--color-text-tertiary);
+    font-family: 'DM Mono', monospace;
+    text-transform: uppercase;
+    letter-spacing: .06em;
+  }
+
+  .finding-chips { display: flex; gap: 6px; flex-wrap: wrap; }
+
+  .fchip {
+    font-size: 11px;
+    font-family: 'DM Mono', monospace;
+    padding: 3px 9px;
+    border-radius: 99px;
+    font-weight: 500;
+  }
+</style>
+
+<div class="wrap">
+  <div class="card">
+    <div class="card-head">
+      <div class="patient">
+        <div class="avatar">__PATIENT_INITIALS__</div>
+        <div>
+          <div class="pname">__PATIENT_NAME__</div>
+          <div class="pdob">__PATIENT_META__</div>
+        </div>
+      </div>
+      <div class="head-badges">
+        <span class="badge badge-date">__CARD_DATE__</span>
+        <span class="badge badge-ok">__CARD_STATUS__</span>
+      </div>
+    </div>
+
+    <div class="chart-area">
+      <canvas id="odo"></canvas>
+    </div>
+
+    <div class="legend-row">
+      <div class="leg-item"><div class="leg-dot" style="background:#c8c5bc;border:1.5px solid #a0a09a;"></div> Healthy</div>
+      <div class="leg-item"><div class="leg-dot" style="background:#85B7EB;"></div> Filling</div>
+      <div class="leg-item"><div class="leg-dot" style="background:#EF9F27;"></div> Caries</div>
+      <div class="leg-item"><div class="leg-dot" style="background:#E24B4A;"></div> Extraction</div>
+      <div class="leg-item"><div class="leg-dot" style="background:#AFA9EC;"></div> Crown</div>
+      <div class="leg-item"><div class="leg-dot" style="background:#5DCAA5;"></div> Root canal</div>
+    </div>
+
+    <div class="footer">
+      <span class="findings-label">Findings</span>
+      <div class="finding-chips">
+        <span class="fchip" style="background:#FAEEDA;color:#633806;">__FINDING_1__</span>
+        <span class="fchip" style="background:#E6F1FB;color:#0C447C;">__FINDING_2__</span>
+        <span class="fchip" style="background:#FCEBEB;color:#791F1F;">__FINDING_3__</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+const cv = document.getElementById('odo');
+const c = cv.getContext('2d');
+
+const SCALE = 2;
+const CW = 520;
+const CH = 210;
+cv.width = CW * SCALE;
+cv.height = CH * SCALE;
+cv.style.width = CW + 'px';
+cv.style.height = CH + 'px';
+c.scale(SCALE, SCALE);
+
+const isDark = () => window.matchMedia('(prefers-color-scheme:dark)').matches;
+
+const upper = [
+  {n:'18',s:'M'},{n:'17',s:'H'},{n:'16',s:'F'},{n:'15',s:'H'},
+  {n:'14',s:'F'},{n:'13',s:'H'},{n:'12',s:'H'},{n:'11',s:'H'},
+  {n:'21',s:'H'},{n:'22',s:'H'},{n:'23',s:'H'},{n:'24',s:'F'},
+  {n:'25',s:'C'},{n:'26',s:'K'},{n:'27',s:'W'},{n:'28',s:'M'},
+];
+
+const lower = [
+  {n:'48',s:'M'},{n:'47',s:'H'},{n:'46',s:'C'},{n:'45',s:'F'},
+  {n:'44',s:'H'},{n:'43',s:'H'},{n:'42',s:'H'},{n:'41',s:'H'},
+  {n:'31',s:'H'},{n:'32',s:'H'},{n:'33',s:'H'},{n:'34',s:'H'},
+  {n:'35',s:'F'},{n:'36',s:'H'},{n:'37',s:'X'},{n:'38',s:'M'},
+];
+
+const COLORS = {
+  H: {fill:'#e2dfda', stroke:'#aaa9a2'},
+  F: {fill:'#85B7EB', stroke:'#378ADD'},
+  C: {fill:'#EF9F27', stroke:'#BA7517'},
+  X: {fill:'#F09595', stroke:'#E24B4A'},
+  K: {fill:'#AFA9EC', stroke:'#7F77DD'},
+  W: {fill:'#5DCAA5', stroke:'#1D9E75'},
+  M: {fill:'transparent', stroke:'#d0cec8'},
+};
+
+const COLORS_DARK = {
+  H: {fill:'#3a3a3a', stroke:'#606060'},
+  F: {fill:'#185FA5', stroke:'#378ADD'},
+  C: {fill:'#854F0B', stroke:'#EF9F27'},
+  X: {fill:'#791F1F', stroke:'#E24B4A'},
+  K: {fill:'#3C3489', stroke:'#7F77DD'},
+  W: {fill:'#085041', stroke:'#1D9E75'},
+  M: {fill:'transparent', stroke:'#444'},
+};
+
+const PAD = 18;
+const GAP = 4;
+const TW = (CW - PAD * 2 - (16 - 1) * GAP) / 16;
+const TH_MOLAR = 28;
+const TH_PREMOLAR = 24;
+const TH_INCISOR = 20;
+const ROOT_H = 18;
+const MID_GAP = 8;
+
+const UPPER_Y = 14;
+const LOWER_Y = UPPER_Y + TH_MOLAR + ROOT_H + MID_GAP + ROOT_H + 4;
+
+function toothHeight(i) {
+  if (i <= 1 || i >= 14) return TH_MOLAR;
+  if (i <= 3 || i >= 12) return TH_PREMOLAR;
+  return TH_INCISOR;
+}
+
+function rootCount(i) {
+  if (i <= 1 || i >= 14) return 3;
+  if (i <= 3 || i >= 12) return 2;
+  return 1;
+}
+
+function toothX(i) {
+  return PAD + i * (TW + GAP);
+}
+
+function drawTooth(i, row, t) {
+  const teeth = row === 'upper' ? upper : lower;
+  const tooth = teeth[i];
+  const pal = isDark() ? COLORS_DARK : COLORS;
+  const col = pal[tooth.s];
+
+  const x = toothX(i);
+  const tw = TW;
+  const th = toothHeight(i);
+  const rc = rootCount(i);
+  const rgap = 2;
+  const rw = (tw - 4 - (rc - 1) * rgap) / rc;
+
+  let ty;
+  let rootY;
+
+  if (row === 'upper') {
+    ty = UPPER_Y;
+    rootY = ty + th - 4;
+  } else {
+    rootY = LOWER_Y;
+    ty = rootY + ROOT_H - 4;
+  }
+
+  if (tooth.s === 'M') {
+    c.strokeStyle = isDark() ? '#444' : '#d0cec8';
+    c.lineWidth = 1;
+    c.setLineDash([3, 3]);
+    c.strokeRect(x, row === 'upper' ? UPPER_Y : ty, tw, th);
+    c.setLineDash([]);
+    c.font = '500 8px DM Mono, monospace';
+    c.fillStyle = isDark() ? '#555' : '#bbb';
+    c.textAlign = 'center';
+    c.fillText(tooth.n, x + tw / 2, row === 'upper' ? UPPER_Y + th + ROOT_H + 11 : ty - 6);
+    return;
+  }
+
+  for (let r = 0; r < rc; r++) {
+    const rx = x + 2 + r * (rw + rgap);
+    c.fillStyle = tooth.s === 'X' ? (isDark() ? '#3a1a1a' : '#f5d0d0') : (isDark() ? '#2a2a2a' : '#d0ccc0');
+    c.beginPath();
+    if (row === 'upper') {
+      c.moveTo(rx + rw / 2, rootY + ROOT_H);
+      c.lineTo(rx, rootY);
+      c.lineTo(rx + rw, rootY);
+    } else {
+      c.moveTo(rx + rw / 2, rootY);
+      c.lineTo(rx, rootY + ROOT_H);
+      c.lineTo(rx + rw, rootY + ROOT_H);
+    }
+    c.closePath();
+    c.fill();
+  }
+
+  c.fillStyle = col.fill;
+  c.strokeStyle = col.stroke;
+  c.lineWidth = 1.2;
+  c.beginPath();
+  const radius = 3;
+  c.moveTo(x + radius, ty);
+  c.lineTo(x + tw - radius, ty);
+  c.quadraticCurveTo(x + tw, ty, x + tw, ty + radius);
+  c.lineTo(x + tw, ty + th - radius);
+  c.quadraticCurveTo(x + tw, ty + th, x + tw - radius, ty + th);
+  c.lineTo(x + radius, ty + th);
+  c.quadraticCurveTo(x, ty + th, x, ty + th - radius);
+  c.lineTo(x, ty + radius);
+  c.quadraticCurveTo(x, ty, x + radius, ty);
+  c.closePath();
+  c.fill();
+  c.stroke();
+
+  if (tooth.s === 'X') {
+    c.strokeStyle = '#E24B4A';
+    c.lineWidth = 1.5;
+    c.beginPath(); c.moveTo(x + 4, ty + 4); c.lineTo(x + tw - 4, ty + th - 4); c.stroke();
+    c.beginPath(); c.moveTo(x + tw - 4, ty + 4); c.lineTo(x + 4, ty + th - 4); c.stroke();
+  }
+
+  if (tooth.s === 'C') {
+    const pulse = 0.5 + 0.5 * Math.sin(t / 600 + i);
+    c.fillStyle = `rgba(239,159,39,${0.25 + 0.2 * pulse})`;
+    c.fillRect(x + 3, ty + 3, tw - 6, th - 6);
+  }
+
+  c.font = '500 8px DM Mono, monospace';
+  c.fillStyle = isDark() ? '#777' : '#999';
+  c.textAlign = 'center';
+  c.fillText(tooth.n, x + tw / 2, row === 'upper' ? ty + th + ROOT_H + 10 : ty - 6);
+}
+
+function drawMidline() {
+  const midY1 = UPPER_Y + TH_MOLAR + ROOT_H + 2;
+  const midY2 = LOWER_Y - 2;
+  const mx = CW / 2;
+  c.strokeStyle = isDark() ? '#333' : '#e0ddd5';
+  c.lineWidth = 1;
+  c.setLineDash([4, 4]);
+  c.beginPath();
+  c.moveTo(mx, midY1);
+  c.lineTo(mx, midY2);
+  c.stroke();
+  c.setLineDash([]);
+}
+
+let t0 = null;
+function frame(ts) {
+  if (!t0) t0 = ts;
+  const t = ts - t0;
+  c.clearRect(0, 0, CW, CH);
+  drawMidline();
+  for (let i = 0; i < 16; i++) {
+    drawTooth(i, 'upper', t);
+    drawTooth(i, 'lower', t);
+  }
+  requestAnimationFrame(frame);
+}
+
+requestAnimationFrame(frame);
+</script>
